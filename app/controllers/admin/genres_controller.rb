@@ -1,15 +1,9 @@
-class Admin::ItemsController < ApplicationController
+class Admin::GenresController < ApplicationController
   
   def index
   end 
   
-  def new
-  end 
-  
   def create
-  end 
-  
-  def show
   end
   
   def edit
