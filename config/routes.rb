@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :items, except: [:destroy]
   resources :genres, only: [:index, :create, :edit, :update]
   resources :customers, only: [:index, :show, :edit, :update]
-  resources :orders, only: [:show, :update] do
+  resources :orders, only: [:index, :show, :update] do
     resources :order_details, only: [:update]
   end
 end
@@ -22,13 +22,28 @@ end
   }
 
   scope module: :public do
+    root 'homes#top'
 
+  get 'customers/mypage' => 'customers#show', as: 'mypage'
+  # customers/editのようにするとdeviseのルーティングとかぶってしまうためinformationを付け加えている。
+  get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
+  patch 'customers/information' => 'customers#update', as: 'update_information'
+  get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
+  put 'customers/information' => 'customers#update'
+  patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
+  delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_items'
+  post 'orders/confirm' => 'orders#confirm'
+  get 'orders/confirm' => 'orders#error'
+  get 'orders/thanks' => 'orders#thanks', as: 'thanks'
+
+  resources :items, only: [:index, :show] do
+    resources :cart_items, only: [:create, :update, :destroy]
+  end
+  resources :cart_items, only: [:index]
+  resources :orders, only: [:new, :index, :create, :show]
   resources :addresses, only: [:index, :create, :edit, :update, :destroy]
-  resources :cart_items, only: [:index, :create, :update, :destroy]
 
   end
-
-
 
 end
 
