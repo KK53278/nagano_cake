@@ -1,7 +1,7 @@
 <section class="wrapper flex">
   <div class="inner">
     <% if params[:genre_id] %>
-      <h2 class="section-ttl">商品一覧 (全<%= @all_items_count %>件)</h2>
+      <h2 class="section-ttl"><%= @genre.name %>の商品一覧 (全<%= @all_items_count %>件)</h2>
     <% else %>
       <h2 class="section-ttl">商品一覧 (全<%= @all_items_count %>件)</h2>
     <% end %>
