@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
-  
-  enum order_status: {
-    "入金待ち":0, "入金確認":1, "制作中":2, "発送準備中":3, "発送済":4
-  }
+  belongs_to :customer
+
+  has_many :items, through: :order_details
+
+  scope :ordered_today, -> { where(created_at: Time.current.at_beginning_of_day..Time.current.at_end_of_day) }
 end

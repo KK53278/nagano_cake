@@ -23,6 +23,12 @@ class Item < ApplicationRecord
     end
   end
 
+  def with_tax_price
+    (price * 1.1).ceil
+    # ceilは切り上げ、floorが切り捨て、roundが四捨五入
+    # priceカラムをintegerにしておかないと切り上げできなくて痛い目見る
+  end
+
   private
 
   def image_type

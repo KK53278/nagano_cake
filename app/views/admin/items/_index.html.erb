@@ -15,6 +15,7 @@
       <td><%= link_to item.name, admin_item_path(item) %></td>
       <td><%= item.price %>円</td>
       <td><%= link_to item.genre.name, admin_items_path(genre_id: item.genre_id) %></td>
+      <!--items _indexにitem.genre_idでitemのgenre_idを引き渡す-->
       <td>
         <% if item.is_active? %>
           <span>販売中</span>
