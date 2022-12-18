@@ -1,21 +1,31 @@
 class Admin::ItemsController < ApplicationController
-
+  before_action :authenticate_admin!
+  before_action :ensure_item, only: [:show, :edit, :update]
+  # ensure_itemの共通化
 
   def new
     @item = Item.new
   end
 
   def index
-    @items = Item.all
+    if params[:genre_id]
+      @genre = Genre.find(params[:genre_id])
+      all_items = @genre.items
+    else
+      all_items = Item.includes(:genre)
+    end
+    @items = all_items
+    @all_items_count = all_items.count
   end
 
   def create
     @item = Item.new(item_params)
-    if @item.save 
-     redirect_to admin_item_path(@item)
-    else
-     render("items/new")
-    end
+    # if @item.save
+    # redirect_to admin_item_path(@item)
+    # else
+    # render("items/new")
+    # end
+    @item.save ? (redirect_to admin_item_path(@item)) : (render :new)
   end
 
   def show
@@ -33,7 +43,8 @@ class Admin::ItemsController < ApplicationController
     params.require(:item).permit(:genre_id, :name, :introduction, :image, :price, :is_active)
   end
 
-  def order_params
-    params.require(:order).permit(:order_status)
+  def ensure_item
+    @item = Item.find(params[:id])
   end
+
 end
