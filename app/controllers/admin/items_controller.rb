@@ -20,11 +20,6 @@ class Admin::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    # if @item.save
-    # redirect_to admin_item_path(@item)
-    # else
-    # render("items/new")
-    # end
     @item.save ? (redirect_to admin_item_path(@item)) : (render :new)
   end
 
@@ -35,6 +30,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def update
+    @item.update(item_params) ? (redirect_to admin_item_path(@item)) : (render :edit)
   end
 
   private
