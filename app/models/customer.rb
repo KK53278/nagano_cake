@@ -4,6 +4,8 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :cart_items, dependent: :destroy
+  has_many :addresses, dependent: :destroy
+  has_many :orders
 
   scope :only_active, -> { where(is_active: true) }
 
