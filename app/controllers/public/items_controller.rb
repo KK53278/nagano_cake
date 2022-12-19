@@ -14,6 +14,11 @@ class Public::ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.where_genre_active.find(params[:id])
+    # where_genre_activeはitemモデル内で定義genreテーブルから販売中のレコードを探す
+    @genres = Genre.only_active
+    # only_activeはcustomerモデルで定義、有効のレコードを探す
+    @cart_item = CartItem.new
   end
 
 end
