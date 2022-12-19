@@ -3,6 +3,7 @@
     <h3>ジャンル一覧</h3>
     <% @genres.each do |genre| %>
     <%= link_to genre.name, items_path(genre_id: genre.id) %>
+    <!--items#indexにgenre_idを引き渡す-->
     <% end %>
   </div>
   <div class="content">
@@ -13,6 +14,7 @@
       <div class="item_info">
         <h4><%= @item.introduction %></h4>
         <p>ジャンル: <%= link_to @item.genre.name, items_path(genre_id: @item.genre_id) %></p>
+                                                              <!--そのitemのgenre_idを渡す-->
         <p>
           ¥<%= @item.with_tax_price %>(税込)
           <% if @item.is_active? %>
