@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
   get "top" => "homes#top", as: "top"
+  get 'customers/:customer_id/orders' => 'orders#index', as: 'customer_orders'
   resources :items, except: [:destroy]
   resources :genres, only: [:index, :create, :edit, :update]
   resources :customers, only: [:index, :show, :edit, :update]
